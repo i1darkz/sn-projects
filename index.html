@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///C:/Users/DARKz/Desktop/SAMA%20Form/index.html -->
+<html dir="rtl" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>DARKz x Sama News Works</title>
+<style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: #1e1e1e;
+      
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      padding: 40px 30px;
+      width: 100%;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin: 20px 0 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #bbbbbb;
+      text-align: right;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background-color: #2b2b2b;
+      color: #fff;
+    }
+    .quick-select {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 10px 0 20px;
+    }
+    .option-button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #444;
+      background-color: #2b2b2b;
+      color: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .option-button:hover {
+      background-color: #444;
+    }
+    .option-button.selected {
+      background-color: #00e676;
+      color: #000;
+      border-color: #00e676;
+    }
+    button {
+      margin-top: 15px;
+      background-color: #00e676;
+      color: #000;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #00c853;
+    }
+    .edit-btn {
+      background-color: #ffc107;
+      color: #000;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #stats {
+      margin-top: 30px;
+      text-align: right;
+      font-size: 16px;
+      color: #ccc;
+      background-color: #2b2b2b;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #333;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      font-size: 15px;
+      color: #fff;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #333;
+    }
+    th {
+      background-color: #333;
+      color: #00e676;
+    }
+  
+.animate-stats {
+  transform-origin: top;
+  transform: scaleY(1);
+  transition: transform 0.4s ease;
+  display: block;
+}
+.animate-stats.hidden {
+  transform: scaleY(0);
+}
+
+
+#statsPopup.show {
+  display: flex !important;
+  animation: fadeIn 0.3s ease;
+}
+.popup-content {
+  animation: scaleIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { background-color: rgba(0,0,0,0); }
+  to { background-color: rgba(0,0,0,0.75); }
+}
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.container {
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 20px;
+}
+
+body {
+  background-color: #1e1e1e !important;
+}
+.container, main, .box, .section, .wrapper {
+  background-color: #1e1e1e !important;
+  border-radius: 0 !important;
+}
+
+body {
+  background-color: #1e1e1e !important;
+}
+.container, main, .box, .section, .wrapper {
+  background-color: #1e1e1e !important;
+  border-radius: 0 !important;
+}
+
+html, body, .container, .main, .section, .wrapper, .content, .box {
+  background-color: #1e1e1e !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html, body {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  box-sizing: border-box;
+}
+.container, .wrapper, main, .content, .section {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+input, select, textarea {
+  background-color: #2a2a2a !important;
+  border: 1px solid #444 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: white !important;
+}
+
+html, body, .container, .wrapper, .content, .main, .section {
+  background-color: #1e1e1e !important;
+  margin: 0;
+  padding: 0 30px !important;
+  box-sizing: border-box;
+}
+
+* {
+  box-shadow: none !important;
+}
+</style>
+</head>
+<body>
+    
+  
+<div class="wrapper">
+<div class="container">
+<h1>DARKz x Sama News Works</h1>
+<label>الاسم:</label>
+<input id="name" type="text"><label>عدد العناصر (اختياري):</label><input id="quantity" placeholder="مثلاً: 10" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 10px; border: 1px solid #333; background-color: #2b2b2b; color: #fff; margin-top: 10px;" type="number">
+<label>نوع العمل:</label>
+<div class="quick-select" id="type-buttons">
+<div class="option-button" data-type="مقابلة">مقابلة</div>
+<div class="option-button" data-type="تغطية">تغطية</div>
+<div class="option-button" data-type="تصميم">تصميم</div>
+<div class="option-button" data-type="مقطع عادي">مقطع عادي</div>
+</div>
+<label>السنة:</label>
+<div class="quick-select" id="year-buttons">
+<div class="option-button" data-year="2024">2024</div>
+<div class="option-button" data-year="2025">2025</div>
+</div>
+<button onclick="register()">تسجيل</button>
+<button onclick="toggleStats()" style="margin-top: 20px; background-color:#555; color:#fff; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;">👁️ إظهار/إخفاء الإحصائيات</button>
+<div class="animate-stats hidden" id="stats" style="display: none;"></div><br><button onclick="deleteAll()" style="background-color:#f44336;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;">🗑️ حذف الكل</button>
+<div style="margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
+<input id="searchInput" oninput="filterTable()" placeholder="🔍 ابحث بالاسم..." style="padding: 10px; border-radius: 10px; border: none; width: 48%; font-size: 14px;" type="text">
+<select id="filterSelect" onchange="filterTable()" style="padding: 10px; border-radius: 10px; border: none; width: 48%; font-size: 14px;">
+<option value="">📂 تصنيف حسب النوع أو السنة</option>
+<option value="مقابلة">📄 مقابلة</option>
+<option value="تغطية">📸 تغطية</option>
+<option value="تصميم">🎨 تصميم</option>
+<option value="مقطع عادي">🎞️ مقطع عادي</option>
+<option value="2024">📅 2024</option>
+<option value="2025">📅 2025</option>
+</select>
+</div>
+<select id="sortSelect" onchange="sortTable()" style="padding: 10px; border-radius: 10px; border: none; width: 100%; font-size: 14px; margin-top: 10px;">
+<option value="">📊 ترتيب حسب العدد</option>
+<option value="asc">🔼 من الأقل إلى الأعلى</option>
+<option value="desc">🔽 من الأعلى إلى الأقل</option>
+</select>
+<div style="margin: 10px 0; text-align: right; font-size: 13px;">
+<label for="analysisSelect">🔍 خيارات سريعة:</label>
+<select id="analysisSelect" onchange="analyzeEntries()" style="font-size: 13px; padding: 4px 8px; border-radius: 6px; background-color: #2b2b2b; color: #fff; border: 1px solid #444;">
+<option value="">-- اختر نوع التحليل --</option>
+<option value="max">📈 أكبر عدد عناصر</option>
+<option value="min">📉 أقل عدد عناصر</option>
+<option value="mostProjects">👷‍♂️ أكثر نوع مشاريع</option>
+<option value="mostQuantityType">📦 أكثر نوع عناصر</option>
+</select>
+<div id="analysisResult" style="margin-top: 10px; color: #ccc;"></div>
+</div><table id="recordsTable">
+<tbody><tr><th>الاسم</th><th>النوع</th><th>السنة</th><th>العدد</th><th>تعديل</th><th>حذف</th></tr>
+</tbody></table>
+</div>
+</div>
+<script>
+    let selectedType = "";
+    let selectedYear = "";
+    let editRow = null;
+    let allEntries = [];
+
+    const stats = {
+      "2024": { "مقابلة": 0, "تغطية": 0, "تصميم": 0, "مقطع عادي": 0 },
+      "2025": { "مقابلة": 0, "تغطية": 0, "تصميم": 0, "مقطع عادي": 0 }
+    };
+
+    function bindButtons() {
+      document.querySelectorAll('#type-buttons .option-button').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('#type-buttons .option-button').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedType = btn.getAttribute('data-type');
+        };
+      });
+
+      document.querySelectorAll('#year-buttons .option-button').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('#year-buttons .option-button').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedYear = btn.getAttribute('data-year');
+        };
+      });
+    }
+
+    function saveToLocal() {
+      localStorage.setItem("workEntries", JSON.stringify(allEntries));
+    }
+
+    function loadFromLocal() {
+      const data = localStorage.getItem("workEntries");
+      if (data) {
+        allEntries = JSON.parse(data);
+        allEntries.forEach(entry => {
+          addRow(entry.name, entry.type, entry.year, entry.quantity);
+          stats[entry.year][entry.type]++;
+        });
+        updateStats();
+      }
+    }
+
+    function addRow(name, type, year, quantity = '') {
+      const table = document.getElementById("recordsTable");
+      const row = table.insertRow(-1);
+      row.insertCell(0).textContent = name || "-";
+      row.insertCell(1).textContent = type;
+      row.insertCell(2).textContent = year;
+      row.insertCell(3).textContent = quantity || '-';
+  const editCell = row.insertCell(4);
+      const btn = document.createElement("button");
+      btn.textContent = "تعديل";
+      btn.className = "edit-btn";
+      btn.onclick = () => editEntry(row);
+      
+    editCell.appendChild(btn);
+    const deleteCell = row.insertCell(4);
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "حذف";
+    delBtn.className = "edit-btn";
+    delBtn.style.backgroundColor = "#f44336";
+    delBtn.style.marginRight = "5px";
+    delBtn.onclick = () => deleteEntry(row);
+    deleteCell.appendChild(delBtn);
+    
+    }
+
+    function register() {
+      const name = document.getElementById("name").value.trim();
+  const quantity = document.getElementById("quantity").value.trim();
+      if (!selectedType || !selectedYear) {
+        alert("يرجى اختيار نوع العمل والسنة.");
+        return;
+      }
+
+      if (editRow) {
+        const oldYear = editRow.cells[2].textContent;
+        const oldType = editRow.cells[1].textContent;
+        stats[oldYear][oldType]--;
+        editRow.cells[0].textContent = name || "-";
+    editRow.cells[3].textContent = quantity || "-";
+        editRow.cells[1].textContent = selectedType;
+        editRow.cells[2].textContent = selectedYear;
+        stats[selectedYear][selectedType]++;
+        const idx = editRow.rowIndex - 1;
+        allEntries[idx] = { name, type: selectedType, year: selectedYear, quantity };
+        editRow = null;
+      } else {
+        addRow(name, selectedType, selectedYear, quantity);
+        stats[selectedYear][selectedType]++;
+        allEntries.push({ name, type: selectedType, year: selectedYear, quantity });
+      }
+
+      saveToLocal();
+      updateStats();
+      document.getElementById("name").value = "";
+  document.getElementById("quantity").value = "";
+      selectedType = "";
+      selectedYear = "";
+      document.querySelectorAll('.option-button').forEach(btn => btn.classList.remove("selected"));
+    }
+
+    function editEntry(row) {
+      document.getElementById("name").value = row.cells[0].textContent;
+      selectedType = row.cells[1].textContent;
+      selectedYear = row.cells[2].textContent;
+
+      document.querySelectorAll('#type-buttons .option-button').forEach(btn => {
+        btn.classList.toggle("selected", btn.getAttribute('data-type') === selectedType);
+      });
+
+      document.querySelectorAll('#year-buttons .option-button').forEach(btn => {
+        btn.classList.toggle("selected", btn.getAttribute('data-year') === selectedYear);
+      });
+
+      editRow = row;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateStats() {
+      const statsDiv = document.getElementById("stats");
+      function getTotal(year) {
+        const y = stats[year];
+        return y["مقابلة"] + y["تغطية"] + y["تصميم"] + y["مقطع عادي"];
+      }
+      
+let totalQuantity = 0;
+allEntries.forEach(e => {
+  const q = parseInt(e.quantity);
+  if (!isNaN(q)) totalQuantity += q;
+});
+statsDiv.innerHTML = `
+
+        <strong>الإحصائيات:</strong><br><br>
+        <u>2024</u><br>
+        مقابلات: ${stats["2024"]["مقابلة"]} |
+        تغطيات: ${stats["2024"]["تغطية"]} |
+        تصاميم: ${stats["2024"]["تصميم"]} |
+        مقاطع عادية: ${stats["2024"]["مقطع عادي"]}<br>
+        <strong>المجموع: ${getTotal("2024")}</strong><br><br>
+        <u>2025</u><br>
+        مقابلات: ${stats["2025"]["مقابلة"]} |
+        تغطيات: ${stats["2025"]["تغطية"]} |
+        تصاميم: ${stats["2025"]["تصميم"]} |
+        مقاطع عادية: ${stats["2025"]["مقطع عادي"]}<br>
+        <strong>المجموع: ${getTotal("2025")}</strong><br><br><strong>📦 مجموع العناصر: ${totalQuantity}</strong><br><br><strong>📊 المجموع العام: ${getTotal("2024") + getTotal("2025")}</strong>
+      `;
+    }
+
+    window.onload = () => {
+      loadFromLocal();
+      bindButtons();
+    };
+  
+    function deleteEntry(row) {
+      const year = row.cells[2].textContent;
+      const type = row.cells[1].textContent;
+      stats[year][type]--;
+      const index = row.rowIndex - 1;
+      allEntries.splice(index, 1);
+      row.remove();
+      saveToLocal();
+      updateStats();
+    }
+
+    function deleteAll() {
+      if (confirm("هل أنت متأكد أنك تريد حذف كل السجلات؟")) {
+        localStorage.removeItem("workEntries");
+        allEntries = [];
+        const table = document.getElementById("recordsTable");
+        while (table.rows.length > 1) {
+          table.deleteRow(1);
+        }
+        Object.keys(stats).forEach(year => {
+          Object.keys(stats[year]).forEach(type => {
+            stats[year][type] = 0;
+          });
+        });
+        updateStats();
+      }
+    }
+
+    function toggleStats() {
+      const stats = document.getElementById("stats");
+      if (stats.classList.contains("hidden")) {
+        stats.style.display = "block";
+        requestAnimationFrame(() => {
+          stats.classList.remove("hidden");
+        });
+      } else {
+        stats.classList.add("hidden");
+        stats.addEventListener("transitionend", function handleTransition() {
+          stats.style.display = "none";
+          stats.removeEventListener("transitionend", handleTransition);
+        });
+      }
+    }
+    
+    function filterTable() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const filter = document.getElementById("filterSelect").value;
+      const table = document.getElementById("recordsTable");
+      const rows = table.getElementsByTagName("tr");
+
+      for (let i = 1; i < rows.length; i++) {
+        const name = rows[i].cells[0].textContent.toLowerCase();
+        const type = rows[i].cells[1].textContent;
+        const year = rows[i].cells[2].textContent;
+
+        
+    const matchesSearch = search.trim() === "" || name.trim().includes(search.trim());
+    
+        const matchesFilter = !filter || type === filter || year === filter;
+
+        rows[i].style.display = (matchesSearch && matchesFilter) ? "" : "none";
+      }
+    }
+    </script>
+<script>
+function showCustomAlert(message) {
+  const existingAlert = document.getElementById("customAlert");
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+
+  const alertBox = document.createElement("div");
+  alertBox.id = "customAlert";
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.left = "50%";
+  alertBox.style.transform = "translateX(-50%)";
+  alertBox.style.backgroundColor = "#b00020";
+  alertBox.style.color = "white";
+  alertBox.style.padding = "15px 25px";
+  alertBox.style.borderRadius = "10px";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.fontSize = "16px";
+  alertBox.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+  document.body.appendChild(alertBox);
+
+  setTimeout(() => {
+    alertBox.remove();
+  }, 3000);
+}
+
+const originalRegister = register;
+register = function() {
+  const name = document.getElementById("name").value.trim();
+  if (!name) {
+    showCustomAlert("الرجاء إدخال الاسم قبل التسجيل.");
+    return;
+  }
+  originalRegister();
+}
+</script>
+<script>
+function analyzeEntries() {
+  const resultDiv = document.getElementById("analysisResult");
+  const mode = document.getElementById("analysisSelect").value;
+  if (!mode) {
+    resultDiv.innerHTML = "";
+    return;
+  }
+
+  if (allEntries.length === 0) {
+    resultDiv.innerHTML = "لا توجد بيانات لتحليلها.";
+    return;
+  }
+
+  if (mode === "max") {
+    const maxEntry = allEntries.reduce((max, e) => (parseInt(e.quantity) > parseInt(max.quantity) ? e : max));
+    resultDiv.innerHTML = `📈 المشروع ذو أكبر عدد عناصر: <strong>${maxEntry.name}</strong> (${maxEntry.quantity} عنصر)`;
+  } else if (mode === "min") {
+    const validEntries = allEntries.filter(e => e.quantity && !isNaN(e.quantity));
+    const minEntry = validEntries.reduce((min, e) => (parseInt(e.quantity) < parseInt(min.quantity) ? e : min));
+    resultDiv.innerHTML = `📉 المشروع ذو أقل عدد عناصر: <strong>${minEntry.name}</strong> (${minEntry.quantity} عنصر)`;
+  } else if (mode === "mostProjects") {
+    const counts = {};
+    allEntries.forEach(e => {
+      counts[e.type] = (counts[e.type] || 0) + 1;
+    });
+    const top = Object.entries(counts).reduce((a, b) => b[1] > a[1] ? b : a);
+    resultDiv.innerHTML = `👷‍♂️ أكثر نوع مشاريع: <strong>${top[0]}</strong> (${top[1]} مشروع)`;
+  } else if (mode === "mostQuantityType") {
+    const sums = {};
+    allEntries.forEach(e => {
+      const q = parseInt(e.quantity);
+      if (!isNaN(q)) sums[e.type] = (sums[e.type] || 0) + q;
+    });
+    const top = Object.entries(sums).reduce((a, b) => b[1] > a[1] ? b : a);
+    resultDiv.innerHTML = `📦 أكثر نوع من حيث عدد العناصر: <strong>${top[0]}</strong> (${top[1]} عنصر)`;
+  }
+}
+</script><script>
+function sortTable() {
+  const select = document.getElementById("sortSelect");
+  const order = select.value;
+  const table = document.getElementById("recordsTable");
+  const rows = Array.from(table.rows).slice(1);
+
+  if (!order) {
+    rows.forEach(row => table.appendChild(row));
+    return;
+  }
+
+  rows.sort((a, b) => {
+    const aVal = parseInt(a.cells[3].textContent) || 0;
+    const bVal = parseInt(b.cells[3].textContent) || 0;
+    return order === "asc" ? aVal - bVal : bVal - aVal;
+  });
+
+  rows.forEach(row => table.appendChild(row));
+}
+</script>
+<div class="popup-hidden" id="statsPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+background-color: rgba(0,0,0,0.75); z-index: 9999; justify-content: center; align-items: center; display: none;">
+<div class="popup-content" style="background-color: #1e1e1e; padding: 30px; border-radius: 12px; max-width: 600px; width: 90%; color: white; text-align: right; position: relative;">
+<button onclick="closeStatsPopup()" style="position: absolute; top: 10px; left: 10px; background-color: #f44336; color: white; border: none; border-radius: 6px; padding: 5px 10px; cursor: pointer;">✖ إغلاق</button>
+<div id="statsPopupContent" style="margin-top: 30px;"></div>
+</div>
+</div>
+<script>
+function toggleStats() {
+  updateStats();
+  const realStats = document.getElementById("stats");
+  const popup = document.getElementById("statsPopup");
+  const popupContent = document.getElementById("statsPopupContent");
+  popupContent.innerHTML = realStats.innerHTML;
+  popup.classList.add("show");
+}
+</script><script>
+function closeStatsPopup() {
+  const popup = document.getElementById("statsPopup");
+  popup.classList.remove("show");
+  popup.style.display = "none";
+  setTimeout(() => popup.style.display = "none", 300);
+}
+</script><script>setTimeout(() => location.reload(), 60000);</script><script>
+if (!sessionStorage.getItem("authenticated")) {
+  document.body.innerHTML = `
+    <div id="lockScreen" style="background:#000; color:white; position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; transition:opacity 0.5s ease;">
+      <h2 style="margin-bottom: 20px;">👋 هلا محمد</h2>
+      <input type="password" id="passwordInput" placeholder="كلمة المرور" style="padding:10px; border-radius:8px; border:none; text-align:center;">
+      <button onclick="checkPassword()" style="margin-top:15px; padding:10px 20px; border:none; border-radius:8px; background:#00e676; color:black; font-weight:bold; cursor:pointer;">دخول</button>
+      <p id="errorText" style="color:red; margin-top:10px; display:none;">كلمة المرور خاطئة</p>
+    </div>
+  ` + document.body.innerHTML;
+}
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value.trim();
+  if (input === "4343") {
+    sessionStorage.setItem("authenticated", "true");
+    const screen = document.getElementById("lockScreen");
+    screen.style.opacity = 0;
+    setTimeout(() => screen.remove(), 500);
+  } else {
+    document.getElementById("errorText").style.display = 'block';
+  }
+}
+</script><script>
+if (sessionStorage.getItem("authenticated")) {
+  const logoutBtn = document.createElement("button");
+  logoutBtn.textContent = "🔓 تسجيل الخروج";
+  logoutBtn.style.position = "fixed";
+  logoutBtn.style.top = "15px";
+  logoutBtn.style.left = "15px";
+  logoutBtn.style.padding = "8px 14px";
+  logoutBtn.style.background = "#f44336";
+  logoutBtn.style.color = "white";
+  logoutBtn.style.border = "none";
+  logoutBtn.style.borderRadius = "8px";
+  logoutBtn.style.cursor = "pointer";
+  logoutBtn.style.zIndex = "9999";
+  logoutBtn.onclick = () => {
+    sessionStorage.removeItem("authenticated");
+    location.reload();
+  };
+  document.body.appendChild(logoutBtn);
+}
+</script>
+
+</body></html>

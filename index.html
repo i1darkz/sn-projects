@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/DARKz/Desktop/SAMA%20Form/index.html -->
-<html dir="rtl" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>DARKz x Sama News Works</title>
+<!DOCTYPE html>
+
+<html dir="rtl" lang="en">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta charset="utf-8"/>
+<title>DARKz x SAMA NEWS</title>
 <style>
     body {
       font-family: 'Cairo', sans-serif;
@@ -206,16 +208,39 @@ html, body, .container, .wrapper, .content, .main, .section {
 * {
   box-shadow: none !important;
 }
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px;
+  }
+  label {
+    font-size: 14px;
+  }
+  input, select, button, .option-button {
+    font-size: 14px !important;
+    padding: 10px !important;
+  }
+  .quick-select {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  table th, table td {
+    font-size: 12px !important;
+    padding: 8px !important;
+  }
+  #sortSelect, #filterSelect, #searchInput {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+}
 </style>
 </head>
 <body>
-    
-  
 <div class="wrapper">
 <div class="container">
-<h1>DARKz x Sama News Works</h1>
+<h1>DARKZ x SAMA NEWS</h1>
 <label>الاسم:</label>
-<input id="name" type="text"><label>عدد العناصر (اختياري):</label><input id="quantity" placeholder="مثلاً: 10" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 10px; border: 1px solid #333; background-color: #2b2b2b; color: #fff; margin-top: 10px;" type="number">
+<input id="name" type="text"/><label>عدد العناصر (اختياري):</label><input id="quantity" placeholder="مثلاً: 10" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 10px; border: 1px solid #333; background-color: #2b2b2b; color: #fff; margin-top: 10px;" type="number"/>
 <label>نوع العمل:</label>
 <div class="quick-select" id="type-buttons">
 <div class="option-button" data-type="مقابلة">مقابلة</div>
@@ -230,9 +255,9 @@ html, body, .container, .wrapper, .content, .main, .section {
 </div>
 <button onclick="register()">تسجيل</button>
 <button onclick="toggleStats()" style="margin-top: 20px; background-color:#555; color:#fff; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;">👁️ إظهار/إخفاء الإحصائيات</button>
-<div class="animate-stats hidden" id="stats" style="display: none;"></div><br><button onclick="deleteAll()" style="background-color:#f44336;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;">🗑️ حذف الكل</button>
+<div class="animate-stats hidden" id="stats" style="display: none;"></div><br/><button onclick="deleteAll()" style="background-color:#f44336;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;">🗑️ حذف الكل</button>
 <div style="margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
-<input id="searchInput" oninput="filterTable()" placeholder="🔍 ابحث بالاسم..." style="padding: 10px; border-radius: 10px; border: none; width: 48%; font-size: 14px;" type="text">
+<input id="searchInput" oninput="filterTable()" placeholder="🔍 ابحث بالاسم..." style="padding: 10px; border-radius: 10px; border: none; width: 48%; font-size: 14px;" type="text"/>
 <select id="filterSelect" onchange="filterTable()" style="padding: 10px; border-radius: 10px; border: none; width: 48%; font-size: 14px;">
 <option value="">📂 تصنيف حسب النوع أو السنة</option>
 <option value="مقابلة">📄 مقابلة</option>
@@ -259,8 +284,8 @@ html, body, .container, .wrapper, .content, .main, .section {
 </select>
 <div id="analysisResult" style="margin-top: 10px; color: #ccc;"></div>
 </div><table id="recordsTable">
-<tbody><tr><th>الاسم</th><th>النوع</th><th>السنة</th><th>العدد</th><th>تعديل</th><th>حذف</th></tr>
-</tbody></table>
+<tr><th>الاسم</th><th>النوع</th><th>السنة</th><th>العدد</th><th>تعديل</th><th>حذف</th></tr>
+</table>
 </div>
 </div>
 <script>
@@ -647,6 +672,52 @@ if (sessionStorage.getItem("authenticated")) {
   };
   document.body.appendChild(logoutBtn);
 }
-</script>
+</script><script>
+const form = document.getElementById("form");
+const tableBody = document.getElementById("dataTable")?.querySelector("tbody");
 
-</body></html>
+function loadData() {
+  fetch("https://script.google.com/macros/s/AKfycbz39Rv-8Em0F_X11AzUFHLqwkpm1SG-7-LJq0doDYMzo7TUNB-OIp9Vx4UPFC3PIg9eWw/exec")
+    .then(res => res.json())
+    .then(data => {
+      if (!tableBody) return;
+      tableBody.innerHTML = "";
+      data.forEach(entry => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${entry.name}</td>
+          <td>${entry.type}</td>
+          <td>${entry.year}</td>
+          <td>${entry.quantity}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    });
+}
+
+if (form) {
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("name").value,
+      type: document.getElementById("type").value,
+      year: document.getElementById("year").value,
+      quantity: document.getElementById("quantity").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbz39Rv-8Em0F_X11AzUFHLqwkpm1SG-7-LJq0doDYMzo7TUNB-OIp9Vx4UPFC3PIg9eWw/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => {
+      form.reset();
+      loadData();
+    });
+  });
+
+  window.onload = loadData;
+}
+</script></body>
+</html>

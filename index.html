@@ -501,59 +501,12 @@ if (form) {
 }
 </script><script>
 const form = document.getElementById("form");
-const tableBody = document.getElementById("dataTable")?.querySelector("tbody");
-
-function loadData() {
-  fetch("https://script.google.com/macros/s/AKfycbz39Rv-8Em0F_X11AzUFHLqwkpm1SG-7-LJq0doDYMzo7TUNB-OIp9Vx4UPFC3PIg9eWw/exec")
-    .then(res => res.json())
-    .then(data => {
-      if (!tableBody) return;
-      tableBody.innerHTML = "";
-      data.forEach(entry => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${entry.name}</td>
-          <td>${entry.type}</td>
-          <td>${entry.year}</td>
-          <td>${entry.quantity}</td>
-        `;
-        tableBody.appendChild(row);
-      });
-    });
-}
-
-if (form) {
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const data = {
-      name: document.getElementById("name").value,
-      type: document.getElementById("type").value,
-      year: document.getElementById("year").value,
-      quantity: document.getElementById("quantity").value
-    };
-
-    fetch("https://script.google.com/macros/s/AKfycbz39Rv-8Em0F_X11AzUFHLqwkpm1SG-7-LJq0doDYMzo7TUNB-OIp9Vx4UPFC3PIg9eWw/exec", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(() => {
-      form.reset();
-      loadData();
-    });
-  });
-
-  window.onload = loadData;
-}
-</script><script>
-const form = document.getElementById("form");
 const tableBody = document.querySelector("#dataTable tbody");
 const scriptURL = "https://script.google.com/macros/s/AKfycbz39Rv-8Em0F_X11AzUFHLqwkpm1SG-7-LJq0doDYMzo7TUNB-OIp9Vx4UPFC3PIg9eWw/exec";
 
 function loadData() {
   fetch(scriptURL)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
       tableBody.innerHTML = "";
       data.forEach(entry => {

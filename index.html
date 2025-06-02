@@ -288,227 +288,7 @@ html, body, .container, .wrapper, .content, .main, .section {
 </table>
 </div>
 </div>
-<script>
-    let selectedType = "";
-    let selectedYear = "";
-    let editRow = null;
-    let allEntries = [];
 
-    const stats = {
-      "2024": { "مقابلة": 0, "تغطية": 0, "تصميم": 0, "مقطع عادي": 0 },
-      "2025": { "مقابلة": 0, "تغطية": 0, "تصميم": 0, "مقطع عادي": 0 }
-    };
-
-    function bindButtons() {
-      document.querySelectorAll('#type-buttons .option-button').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('#type-buttons .option-button').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedType = btn.getAttribute('data-type');
-        };
-      });
-
-      document.querySelectorAll('#year-buttons .option-button').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('#year-buttons .option-button').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedYear = btn.getAttribute('data-year');
-        };
-      });
-    }
-
-    function saveToLocal() {
-      localStorage.setItem("workEntries", JSON.stringify(allEntries));
-    }
-
-    function loadFromLocal() {
-      const data = localStorage.getItem("workEntries");
-      if (data) {
-        allEntries = JSON.parse(data);
-        allEntries.forEach(entry => {
-          addRow(entry.name, entry.type, entry.year, entry.quantity);
-          stats[entry.year][entry.type]++;
-        });
-        updateStats();
-      }
-    }
-
-    function addRow(name, type, year, quantity = '') {
-      const table = document.getElementById("recordsTable");
-      const row = table.insertRow(-1);
-      row.insertCell(0).textContent = name || "-";
-      row.insertCell(1).textContent = type;
-      row.insertCell(2).textContent = year;
-      row.insertCell(3).textContent = quantity || '-';
-  const editCell = row.insertCell(4);
-      const btn = document.createElement("button");
-      btn.textContent = "تعديل";
-      btn.className = "edit-btn";
-      btn.onclick = () => editEntry(row);
-      
-    editCell.appendChild(btn);
-    const deleteCell = row.insertCell(4);
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "حذف";
-    delBtn.className = "edit-btn";
-    delBtn.style.backgroundColor = "#f44336";
-    delBtn.style.marginRight = "5px";
-    delBtn.onclick = () => deleteEntry(row);
-    deleteCell.appendChild(delBtn);
-    
-    }
-
-    function register() {
-      const name = document.getElementById("name").value.trim();
-  const quantity = document.getElementById("quantity").value.trim();
-      if (!selectedType || !selectedYear) {
-        alert("يرجى اختيار نوع العمل والسنة.");
-        return;
-      }
-
-      if (editRow) {
-        const oldYear = editRow.cells[2].textContent;
-        const oldType = editRow.cells[1].textContent;
-        stats[oldYear][oldType]--;
-        editRow.cells[0].textContent = name || "-";
-    editRow.cells[3].textContent = quantity || "-";
-        editRow.cells[1].textContent = selectedType;
-        editRow.cells[2].textContent = selectedYear;
-        stats[selectedYear][selectedType]++;
-        const idx = editRow.rowIndex - 1;
-        allEntries[idx] = { name, type: selectedType, year: selectedYear, quantity };
-        editRow = null;
-      } else {
-        addRow(name, selectedType, selectedYear, quantity);
-        stats[selectedYear][selectedType]++;
-        allEntries.push({ name, type: selectedType, year: selectedYear, quantity });
-      }
-
-      saveToLocal();
-      updateStats();
-      document.getElementById("name").value = "";
-  document.getElementById("quantity").value = "";
-      selectedType = "";
-      selectedYear = "";
-      document.querySelectorAll('.option-button').forEach(btn => btn.classList.remove("selected"));
-    }
-
-    function editEntry(row) {
-      document.getElementById("name").value = row.cells[0].textContent;
-      selectedType = row.cells[1].textContent;
-      selectedYear = row.cells[2].textContent;
-
-      document.querySelectorAll('#type-buttons .option-button').forEach(btn => {
-        btn.classList.toggle("selected", btn.getAttribute('data-type') === selectedType);
-      });
-
-      document.querySelectorAll('#year-buttons .option-button').forEach(btn => {
-        btn.classList.toggle("selected", btn.getAttribute('data-year') === selectedYear);
-      });
-
-      editRow = row;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function updateStats() {
-      const statsDiv = document.getElementById("stats");
-      function getTotal(year) {
-        const y = stats[year];
-        return y["مقابلة"] + y["تغطية"] + y["تصميم"] + y["مقطع عادي"];
-      }
-      
-let totalQuantity = 0;
-allEntries.forEach(e => {
-  const q = parseInt(e.quantity);
-  if (!isNaN(q)) totalQuantity += q;
-});
-statsDiv.innerHTML = `
-
-        <strong>الإحصائيات:</strong><br><br>
-        <u>2024</u><br>
-        مقابلات: ${stats["2024"]["مقابلة"]} |
-        تغطيات: ${stats["2024"]["تغطية"]} |
-        تصاميم: ${stats["2024"]["تصميم"]} |
-        مقاطع عادية: ${stats["2024"]["مقطع عادي"]}<br>
-        <strong>المجموع: ${getTotal("2024")}</strong><br><br>
-        <u>2025</u><br>
-        مقابلات: ${stats["2025"]["مقابلة"]} |
-        تغطيات: ${stats["2025"]["تغطية"]} |
-        تصاميم: ${stats["2025"]["تصميم"]} |
-        مقاطع عادية: ${stats["2025"]["مقطع عادي"]}<br>
-        <strong>المجموع: ${getTotal("2025")}</strong><br><br><strong>📦 مجموع العناصر: ${totalQuantity}</strong><br><br><strong>📊 المجموع العام: ${getTotal("2024") + getTotal("2025")}</strong>
-      `;
-    }
-
-    window.onload = () => {
-      loadFromLocal();
-      bindButtons();
-    };
-  
-    function deleteEntry(row) {
-      const year = row.cells[2].textContent;
-      const type = row.cells[1].textContent;
-      stats[year][type]--;
-      const index = row.rowIndex - 1;
-      allEntries.splice(index, 1);
-      row.remove();
-      saveToLocal();
-      updateStats();
-    }
-
-    function deleteAll() {
-      if (confirm("هل أنت متأكد أنك تريد حذف كل السجلات؟")) {
-        localStorage.removeItem("workEntries");
-        allEntries = [];
-        const table = document.getElementById("recordsTable");
-        while (table.rows.length > 1) {
-          table.deleteRow(1);
-        }
-        Object.keys(stats).forEach(year => {
-          Object.keys(stats[year]).forEach(type => {
-            stats[year][type] = 0;
-          });
-        });
-        updateStats();
-      }
-    }
-
-    function toggleStats() {
-      const stats = document.getElementById("stats");
-      if (stats.classList.contains("hidden")) {
-        stats.style.display = "block";
-        requestAnimationFrame(() => {
-          stats.classList.remove("hidden");
-        });
-      } else {
-        stats.classList.add("hidden");
-        stats.addEventListener("transitionend", function handleTransition() {
-          stats.style.display = "none";
-          stats.removeEventListener("transitionend", handleTransition);
-        });
-      }
-    }
-    
-    function filterTable() {
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const filter = document.getElementById("filterSelect").value;
-      const table = document.getElementById("recordsTable");
-      const rows = table.getElementsByTagName("tr");
-
-      for (let i = 1; i < rows.length; i++) {
-        const name = rows[i].cells[0].textContent.toLowerCase();
-        const type = rows[i].cells[1].textContent;
-        const year = rows[i].cells[2].textContent;
-
-        
-    const matchesSearch = search.trim() === "" || name.trim().includes(search.trim());
-    
-        const matchesFilter = !filter || type === filter || year === filter;
-
-        rows[i].style.display = (matchesSearch && matchesFilter) ? "" : "none";
-      }
-    }
-    </script>
 <script>
 function showCustomAlert(message) {
   const existingAlert = document.getElementById("customAlert");
@@ -766,5 +546,49 @@ if (form) {
 
   window.onload = loadData;
 }
+</script><script>
+const form = document.getElementById("form");
+const tableBody = document.querySelector("#dataTable tbody");
+const scriptURL = "https://script.google.com/macros/s/AKfycbz39Rv-8Em0F_X11AzUFHLqwkpm1SG-7-LJq0doDYMzo7TUNB-OIp9Vx4UPFC3PIg9eWw/exec";
+
+function loadData() {
+  fetch(scriptURL)
+    .then(response => response.json())
+    .then(data => {
+      tableBody.innerHTML = "";
+      data.forEach(entry => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>\${entry.name}</td>
+          <td>\${entry.type}</td>
+          <td>\${entry.year}</td>
+          <td>\${entry.quantity}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    });
+}
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const data = {
+    name: document.getElementById("name").value,
+    type: document.getElementById("type").value,
+    year: document.getElementById("year").value,
+    quantity: document.getElementById("quantity").value
+  };
+  fetch(scriptURL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(() => {
+    form.reset();
+    loadData();
+  });
+});
+
+window.onload = loadData;
 </script></body>
 </html>

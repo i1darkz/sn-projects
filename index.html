@@ -543,5 +543,71 @@ form.addEventListener("submit", function(e) {
 });
 
 window.onload = loadData;
-</script></body>
+</script>
+<!-- Firebase Integration -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCTmpMEJdgbcwXs1Te5C4qvwtXSK526fWk",
+  authDomain: "sama-form.firebaseapp.com",
+  databaseURL: "https://sama-form-default-rtdb.firebaseio.com",
+  projectId: "sama-form",
+  storageBucket: "sama-form.firebasestorage.app",
+  messagingSenderId: "978448315706",
+  appId: "1:978448315706:web:84a0792d0ee4a91eb08c03"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+function saveToFirebase(entry) {
+  db.ref("entries").push(entry);
+}
+
+function loadFromFirebase() {
+  const table = document.getElementById("recordsTable");
+  const rows = table.querySelectorAll("tr");
+  rows.forEach((row, index) => { if (index !== 0) row.remove(); });
+  allEntries = [];
+
+  db.ref("entries").once("value", snapshot => {
+    snapshot.forEach(child => {
+      const e = child.val();
+      allEntries.push(e);
+    });
+    renderTable();
+    updateStats();
+  });
+}
+
+window.onload = loadFromFirebase;
+
+const originalRegisterFunction = register;
+register = function() {
+  const name = document.getElementById("name").value.trim();
+  if (!name) {
+    showCustomAlert("الرجاء إدخال الاسم قبل التسجيل.");
+    return;
+  }
+
+  const quantity = document.getElementById("quantity").value.trim();
+  const selectedType = document.querySelector(".option-button.selected[data-type]");
+  const selectedYear = document.querySelector(".option-button.selected[data-year]");
+
+  const entry = {
+    name: name,
+    type: selectedType ? selectedType.getAttribute("data-type") : "",
+    year: selectedYear ? selectedYear.getAttribute("data-year") : "",
+    quantity: quantity
+  };
+
+  allEntries.push(entry);
+  saveToFirebase(entry);
+  renderTable();
+  updateStats();
+  clearInputs();
+}
+</script>
+
+</body>
 </html>
